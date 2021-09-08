@@ -1,5 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+error_reporting(0);
 require_once('../../includes/funcoes.php');
 require_once('../../database/config.database.php');
 require_once('../../database/config.php');
@@ -27,6 +28,52 @@ if ($id != '0') {
 	<link rel="stylesheet" href="src/style/bdt-uikit.css">
 	<link rel="stylesheet" href="src/style/element-pack-site.css">
 	<link rel="stylesheet" href="src/style/ep-advanced-button.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+	<style>
+	<?php if (!empty($categoria['font_title'])) : ?>@import url("https://fonts.googleapis.com/css?family=<?= $categoria['font_title']; ?>");
+	<?php endif; ?>
+	<?php if (!empty($categoria['font_desc'])) : ?>@import url("https://fonts.googleapis.com/css?family=<?= $categoria['font_desc']; ?>");
+
+	<?php endif; ?>
+	.bdt-wc-slider-title{
+		font-family: <?= $categoria['font_title']; ?> !important;
+		color: <?= $categoria['cor_titulo']; ?> !important;
+		font-size: <?= $categoria['size_title']; ?> !important;
+		font-weight: <?= $categoria['weight_title']; ?> !important;
+	}
+	.bdt-wc-slider .bdt-wc-slider-price{
+		font-family: <?= $categoria['font_desc']; ?> !important;		
+		font-size: <?= $categoria['size_desc']; ?> !important;
+		font-weight: <?= $categoria['weight_desc']; ?> !important;
+	}
+	ins{
+		color: <?= $categoria['cor_bg']; ?> !important;
+	}
+	del{
+		color: <?= $categoria['cor_bg_hover']; ?> !important;
+
+	}
+	.fa-chevron-circle-left, .fa-chevron-circle-right{
+		cursor: pointer;
+		color: <?= $categoria['cor_icone']; ?> !important;
+		border: 2px solid <?= $categoria['cor_icone']; ?> !important;
+	}
+	.fa-chevron-circle-left:hover, .fa-chevron-circle-right:hover  {
+		color: <?= $categoria['cor_icone_hover']; ?> !important;
+		border: 2px solid <?= $categoria['cor_icone_hover']; ?> !important;
+	}
+	.bdt-wc-slider .bdt-wc-add-to-cart a:hover{
+		background: <?= $categoria['cor_btn_hover']; ?> !important;
+		color: <?= $categoria['cor_btn_txt_hover']; ?> !important;
+		border: 2px solid <?= $categoria['cor_btn_hover']; ?> !important;
+	}
+	.bdt-wc-slider .bdt-wc-add-to-cart a{
+		background: <?= $categoria['cor_btn']; ?> !important;
+		color: <?= $categoria['cor_btn_txt']; ?> !important;
+		border: 2px solid <?= $categoria['cor_btn']; ?> !important;
+	}
+	</style>
 </head>
 
 <body
@@ -43,6 +90,7 @@ if ($id != '0') {
 							data-elementor-settings="[]">
 							<div class="elementor-inner">
 								<div class="elementor-section-wrap">
+								<?php if (is_array($Query)) : ?>
 									<section
 										class="elementor-section elementor-top-section elementor-element elementor-element-339fc32 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
 										data-id="339fc32" data-element_type="section"
@@ -58,13 +106,13 @@ if ($id != '0') {
 																data-id="63e9d76" data-element_type="widget"
 																data-widget_type="bdt-wc-slider.default">
 																<div class="elementor-widget-container">
-																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:true,&quot;autoplay-interval&quot;:7000,&quot;velocity&quot;:1}"
+																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:true,&quot;autoplay-interval&quot;:<?= $categoria['seconds']; ?>,&quot;velocity&quot;:1}"
 																		class="bdt-wc-slider bdt-arrows-align-bottom-right bdt-slideshow">
 																		<div
 																			class="bdt-position-relative bdt-visible-toggle">
 																			<ul class="bdt-slideshow-items bdt-child-width-1-1"
 																				style="min-height: 600px;">
-
+																				<?php foreach ($Query as $dados) : ?>
 																				<li class="bdt-slideshow-item bdt-active bdt-transition-active"
 																					tabindex="-1" >
 																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1"
@@ -80,21 +128,20 @@ if ($id != '0') {
 																										class="wae-product-price">
 																										<p
 																											class="price">
-																											<del
+																											<del id="preco"
 																												aria-hidden="true"><span
 																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>180.00</bdi></span></del>
-																											<ins><span
+																															class="woocommerce-Price-currencySymbol">R$</span><?= $dados['preco_c']; ?></bdi></span></del>
+																											<ins id="preco"><span
 																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>105.00</bdi></span></ins>
+																															class="woocommerce-Price-currencySymbol">R$</span><?= $dados['preco']; ?></bdi></span></ins>
 																										</p>
 																									</div>
 																								</div>
 
-																								<h2
-																									class="bdt-wc-slider-title">
-																									Scout Brook in Steel
-																								</h2>
+																								<p	class="bdt-wc-slider-title">
+																									<?= $dados['titulo']; ?>
+																								</p>
 
 																								<div
 																									class="bdt-wc-rating bdt-flex bdt-flex-left">
@@ -105,22 +152,14 @@ if ($id != '0') {
 																									class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-left bdt-flex-middle">
 																									<div
 																										class="bdt-wc-add-to-cart">
-																										<a href="https://www.elementpack.pro/demo/element/woocommerce-slider/?add-to-cart=41202"
+																										<a target="<?= $dados['destino_url']; ?>" href="<?= $dados['url']; ?>"
 																											data-quantity="1"
 																											class="button product_type_simple add_to_cart_button ajax_add_to_cart"
 																											data-product_id="41202"
 																											data-product_sku=""
 																											aria-label="Add “Scout Brook in Steel” to your cart"
-																											rel="nofollow">Add
-																											to cart</a>
-																									</div>
-
-
-																									<a href="https://www.elementpack.pro/demo/product/scout-brook-in-steel/"
-																										class="bdt-wc-slider-readmore ">
-																										Read More
-
-																									</a>
+																											rel="nofollow">Comprar</a>
+																									</div>																									
 
 																								</div>
 
@@ -132,193 +171,29 @@ if ($id != '0') {
 																							<div
 																								class="bdt-position-relative bdt-wc-slider-image">
 
-																								<img src="./WooCommerce Slider with element pack pro WordPress plugin_files/watch.jpg"
-																									alt="Scout Brook in Steel">																							
+																								<img src="<?= ConfigPainel('base_url'); ?>/wa/slide_produtos/uploads/<?= $dados['imagem']; ?>" alt="Scout Brook in Steel">																							
 
 																							</div>
 																						</div>
 
 																					</div>
 																				</li>
-
-
-																				<li class="bdt-slideshow-item"
-																					tabindex="-1" >
-																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1 bdt-grid-stack"
-																						data-bdt-grid="">
-																						<div
-																							class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
-																							<div
-																								class="bdt-slideshow-content-wrapper bdt-padding bdt-text-left">
-
-																								<div
-																									class="bdt-wc-slider-price">
-																									<div
-																										class="wae-product-price">
-																										<p
-																											class="price">
-																											<del
-																												aria-hidden="true"><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>150.00</bdi></span></del>
-																											<ins><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>90.00</bdi></span></ins>
-																										</p>
-																									</div>
-																								</div>
-
-																								<h2
-																									class="bdt-wc-slider-title">
-																									Zoo T-Shirt</h2>
-
-																								<div
-																									class="bdt-wc-rating bdt-flex bdt-flex-left">
-																									<div class="star-rating"
-																										role="img"
-																										aria-label="Rated 5.00 out of 5">
-																										<span
-																											style="width:100%">Rated
-																											<strong
-																												class="rating">5.00</strong>
-																											out of
-																											5</span>
-																									</div>
-																								</div>
-
-
-																								<div
-																									class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-left bdt-flex-middle">
-																									<div
-																										class="bdt-wc-add-to-cart">
-																										<a href="https://www.elementpack.pro/demo/element/woocommerce-slider/?add-to-cart=41174"
-																											data-quantity="1"
-																											class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-																											data-product_id="41174"
-																											data-product_sku=""
-																											aria-label="Add “Zoo T-Shirt” to your cart"
-																											rel="nofollow">Add
-																											to cart</a>
-																									</div>
-
-
-																									<a href="https://www.elementpack.pro/demo/product/zoo-t-shirt/"
-																										class="bdt-wc-slider-readmore ">
-																										Read More
-
-																									</a>
-
-																								</div>
-
-																							</div>
-																						</div>
-
-																						<div
-																							class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-mobile-order bdt-first-column">
-																							<div
-																								class="bdt-position-relative bdt-wc-slider-image">
-
-																								<img src="./WooCommerce Slider with element pack pro WordPress plugin_files/shirt.jpg"
-																									alt="Zoo T-Shirt">
-																							</div>
-																						</div>
-
-																					</div>
-																				</li>
-
-
-																				<li class="bdt-slideshow-item"
-																					tabindex="-1">
-																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1 bdt-grid-stack"
-																						data-bdt-grid="">
-																						<div
-																							class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
-																							<div
-																								class="bdt-slideshow-content-wrapper bdt-padding bdt-text-left">
-
-																								<div
-																									class="bdt-wc-slider-price">
-																									<div
-																										class="wae-product-price">
-																										<p
-																											class="price">
-																											<del
-																												aria-hidden="true"><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>800.00</bdi></span></del>
-																											<ins><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">$</span>610.00</bdi></span></ins>
-																										</p>
-																									</div>
-																								</div>
-
-																								<h2
-																									class="bdt-wc-slider-title">
-																									Mini Bucket Bag in
-																									Olive</h2>
-
-																								<div
-																									class="bdt-wc-rating bdt-flex bdt-flex-left">
-																								</div>
-
-
-																								<div
-																									class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-left bdt-flex-middle">
-																									<div
-																										class="bdt-wc-add-to-cart">
-																										<a href="https://www.elementpack.pro/demo/element/woocommerce-slider/?add-to-cart=41163"
-																											data-quantity="1"
-																											class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-																											data-product_id="41163"
-																											data-product_sku=""
-																											aria-label="Add “Mini Bucket Bag in Olive” to your cart"
-																											rel="nofollow">Add
-																											to cart</a>
-																									</div>
-
-
-																									<a href="https://www.elementpack.pro/demo/product/mini-bucket-bag-in-olive/"
-																										class="bdt-wc-slider-readmore ">
-																										Read More
-
-																									</a>
-
-																								</div>
-
-																							</div>
-																						</div>
-
-																						<div
-																							class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-mobile-order">
-																							<div
-																								class="bdt-position-relative bdt-wc-slider-image">
-
-																								<img src="./WooCommerce Slider with element pack pro WordPress plugin_files/bag.jpg"
-																									alt="Mini Bucket Bag in Olive">
-																							</div>
-																						</div>
-
-																					</div>
-																				</li>
-
+																				<?php endforeach; ?>																				
 																			</ul>
 
 																			<div
 																				class="bdt-position-z-index bdt-position-bottom-right bdt-visible@m">
 																				<div
 																					class="bdt-arrows-container bdt-slidenav-container">
-																					<a href="https://www.elementpack.pro/demo/element/woocommerce-slider/"
+																					<a 
 																						class="bdt-navigation-prev bdt-slidenav-previous bdt-icon bdt-slidenav"
 																						data-bdt-slideshow-item="previous">
-																						<i class="ep-arrow-left-5"
-																							aria-hidden="true"></i>
+																						<i class="fas fa-chevron-circle-left"></i>
 																					</a>
-																					<a href="https://www.elementpack.pro/demo/element/woocommerce-slider/"
+																					<a 
 																						class="bdt-navigation-next bdt-slidenav-next bdt-icon bdt-slidenav"
 																						data-bdt-slideshow-item="next">
-																						<i class="ep-arrow-right-5"
-																							aria-hidden="true"></i>
+																						<i class="fas fa-chevron-circle-right"></i>
 																					</a>
 																				</div>
 																			</div>
@@ -332,6 +207,9 @@ if ($id != '0') {
 											</div>
 										</div>
 									</section>
+									<?php else : ?>
+										<p>Não encontramos nenhuma informação para ser exibida.</p>
+									<?php endif; ?>
 								</div>
 							</div>
 						</div>

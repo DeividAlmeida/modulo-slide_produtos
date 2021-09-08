@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 if (!$_SESSION['node']['id']) {
 	die();
 	exit();
@@ -23,7 +24,8 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 	}
 	$dataArray = array(
 		'titulo' 		=> post('titulo'),
-		'conteudo' 		=> post('conteudo'),
+		'preco' 		=> post('preco'),
+		'preco_c' 		=> post('preco_c'),
 		'txt_botao' 	=> post('txt_botao'),
 		'url' 			=> post('url'),
 		'ordem' 		=> (!empty(post('ordem'))) ? post('ordem') : 1,
@@ -44,7 +46,6 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 				$file_dst_name = $handle->file_dst_name;
 				$Imagem = $handle->file_dst_name;
 				$dataArray['imagem'] = $Imagem;
-				@unlink($dir_dest . post('imagem_atual'));
 			}
 		}
 	}
@@ -139,8 +140,7 @@ if (isset($_GET['AddCategoria']) || isset($_GET['AtualizarCategoria'])) {
 		'cor_icone' 	    => post('cor_icone'),
 		'cor_icone_hover' 	=> post('cor_icone_hover'),
 
-		'padding_y' 		=> (!empty(post('padding_y'))) ? post('padding_y') : 0,
-		'seconds' 			=> (!empty(post('seconds'))) ? post('seconds') : 0,
+		'seconds' 			=> post('seconds') ,
 
 		'size_title' 	    => post('size_title'),
 		'weight_title' 	    => post('weight_title'),

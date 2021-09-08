@@ -8,12 +8,14 @@ SELECT "Slide de Produtos", "slide_produtos.php", "icon-object-group", 1, 0, "sl
 CREATE TABLE IF NOT EXISTS `slide_produtos` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `imagem` varchar(255) DEFAULT NULL,
-  `titulo` varchar(255) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
   `conteudo` text DEFAULT NULL,
   `txt_botao` varchar(255) DEFAULT NULL,
-  `url` varchar(255) NOT NULL,
-  `destino_url` varchar(25) NOT NULL,
-  `id_categoria` int(11) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `destino_url` varchar(25) DEFAULT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  `preco` FLOAT(50,2) DEFAULT NULL,
+  `preco_c` FLOAT(50,2) DEFAULT NULL,
   `ordem` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -29,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `c_slide_produtos` (
   `cor_titulo` varchar(255) DEFAULT NULL,
   `cor_icone` varchar(255) DEFAULT NULL,
   `padding_y` int(11) DEFAULT NULL,
-  `seconds` int(11) DEFAULT NULL,
+  `seconds` text DEFAULT NULL,
   `size_title` int(11) DEFAULT NULL,
   `size_desc` int(11) DEFAULT NULL,
   `weight_title` varchar(255) DEFAULT NULL,

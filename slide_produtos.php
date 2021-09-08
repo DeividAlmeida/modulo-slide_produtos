@@ -75,6 +75,11 @@
 								</div>
 
 								<div class="form-group">
+									<label>Preço:</label>
+									<input class="form-control" type="number" name="preco" value="<?= $dados['preco'] ?? ''; ?>">
+								</div>
+
+								<div class="form-group">
 									<label>URL:</label>
 									<input class="form-control" name="url" value="<?= $dados['url'] ?? ''; ?>">
 									<small>Deixe esse campo em branco para que seu slider não possua nenhum link.</small>
@@ -90,13 +95,19 @@
 									</select>
 								</div>
 
+								
 								<div class="form-group">
-									<label>Categoria:</label>
+								<label>Categoria:</label>
 									<select class="form-control" name="id_categoria" data-selected="<?= $dados['id_categoria'] ?? $_GET['AdicionarItem']; ?>">
 										<?php foreach (DBRead('c_slide_produtos', '*', 'WHERE id > 0') ?? [] as $c_dados) { ?>
 											<option value="<?= $c_dados['id']; ?>"><?= $c_dados['categoria']; ?></option>
 										<?php } ?>
 									</select>
+								</div>
+										
+								<div class="form-group">
+									<label>Preço Cortado:</label>
+									<input class="form-control" name="preco_c" type="number" value="<?= $dados['preco_c'] ?? ''; ?>">
 								</div>
 
 								<div class="form-group">
@@ -107,16 +118,9 @@
 
 								<div class="form-group">
 									<label>Ordenar:</label>
-									<input class="form-control" name="ordem" value="<?= $dados['ordem'] ?? ''; ?>">
+									<input class="form-control" type="number" name="ordem" value="<?= $dados['ordem'] ?? ''; ?>">
 								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Conteúdo:</label>
-									<textarea class="form-control tinymce" name="conteudo"><?= $dados['conteudo'] ?? ''; ?></textarea>
-								</div>
-							</div>
+							</div>							
 						</div>
 
 						<div class="card-footer white">
@@ -152,7 +156,7 @@
 						<strong>Salvar Listagem</strong>
 					</div>
 
-					<div class="card-body">
+					<div class="card-body">	
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
@@ -160,14 +164,13 @@
 									<input class="form-control" name="categoria" value="<?= $c_dados['categoria'] ?? ''; ?>" required>
 								</div>
 							</div>
-						</div>
-
+						</div>					
 						<div class="row">
 							<div class="col">
 								<div class="row">
 									<div class="col">
 										<div class="form-group">
-											<label>Cor Background 1:</label>
+											<label>Cor do Preço:</label>
 											<div class="color-picker input-group colorpicker-element focused">
 												<input type="text" value="<?= $c_dados['cor_bg'] ?? ''; ?>" name="cor_bg" class="form-control">
 												<span class="input-group-append">
@@ -180,7 +183,7 @@
 									</div>
 									<div class="col">
 										<div class="form-group">
-											<label>Cor Background 2:</label>
+											<label>Cor do Preço Cortado:</label>
 											<div class="color-picker input-group colorpicker-element focused">
 												<input type="text" value="<?= $c_dados['cor_bg_hover'] ?? ''; ?>" name="cor_bg_hover" class="form-control">
 												<span class="input-group-append">
@@ -298,19 +301,12 @@
 									</div>
 								</div>
 
-								<div class="row">
-									<div class="col">
-										<div class="form-group">
-											<label>Espaçamento em cima e em baixo:</label>
-											<input type="number" class="form-control" name="padding_y" value="<?= $c_dados['padding_y'] ?? ''; ?>">
-										</div>
-									</div>
-
+								<div class="row">									
 									<div class="col">
 										<div class="form-group">
 											<label>Tempo de transição em segundos:</label>
 											<input type="number" class="form-control" name="seconds" value="<?= $c_dados['seconds'] ?? ''; ?>">
-											<em>Digite 0 para transição manual</em>
+											<em>Deixe em branco para transição manual</em>
 										</div>
 									</div>
 								</div>
@@ -351,7 +347,7 @@
 						</div>
 						<hr>
 
-						<h3>ESTILO DA DESCRIÇÃO</h3>
+						<h3>ESTILO DO PREÇO</h3>
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
@@ -401,58 +397,56 @@
 					<strong>Itens Cadastrados</strong>
 				</div>
 
-				<div class="card-body p-0">
-					<div>
-						<div class="table-responsive">
-							<table id="DataTable" class="table m-0 table-striped">
-								<?php if (is_array($Query)) { ?>
+				<div class="card-body p-0">					
+					<div class="table-responsive" style="overflow-x: visible !important">
+						<table id="DataTable" class="table m-0 table-striped">
+							<?php if (is_array($Query)) { ?>
+								<tr>
+									<th>ID</th>
+									<th>Imagem</th>
+									<th>Titulo</th>
+									<th>Categoria</th>
+									<th width="53px">Ações</th>
+								</tr>
+								<?php
+								foreach ($Query as $dados) { ?>
 									<tr>
-										<th>ID</th>
-										<th>Imagem</th>
-										<th>Titulo</th>
-										<th>Categoria</th>
-										<th width="53px">Ações</th>
-									</tr>
-									<?php
-									foreach ($Query as $dados) { ?>
-										<tr>
-											<td><?= $dados['id']; ?></td>
-											<td><img class="no-b no-p r-5" src="<?= ConfigPainel('base_url'); ?>/wa/thumb.php?src=<?= ConfigPainel('base_url'); ?>/wa/slide_produtos/uploads/<?= $dados['imagem']; ?>&w=180" /></td>
-											<td><?= LimitarTexto($dados['titulo'], '80', '...'); ?></td>
-											<td><?= VerificaCategoriaItem($dados['id_categoria'], 'c_slide_produtos'); ?></td>
-											<td>
-												<div class="dropdown">
-													<a class="" href="#" data-toggle="dropdown">
-														<i class="icon-apps blue lighten-2 avatar"></i>
-													</a>
+										<td><?= $dados['id']; ?></td>
+										<td width="150"><img class="no-b no-p r-5" src="wa/slide_produtos/uploads/<?= $dados['imagem']; ?>" /></td>
+										<td><?= LimitarTexto($dados['titulo'], '80', '...'); ?></td>
+										<td><?= VerificaCategoriaItem($dados['id_categoria'], 'c_slide_produtos'); ?></td>
+										<td>
+											<div class="dropdown">
+												<a class="" href="#" data-toggle="dropdown">
+													<i class="icon-apps blue lighten-2 avatar"></i>
+												</a>
 
-													<div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end">
-														<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'editar')) { ?>
-															<a class="dropdown-item" href="?EditarItem=<?= $dados['id']; ?>"><i class="text-primary icon icon-pencil"></i> Editar</a>
+												<div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end">
+													<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'editar')) { ?>
+														<a class="dropdown-item" href="?EditarItem=<?= $dados['id']; ?>"><i class="text-primary icon icon-pencil"></i> Editar</a>
+													<?php } ?>
+													<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'adicionar')) { ?>
+														<a class="dropdown-item" href="?DuplicarItem=<?= $dados['id']; ?>"><i class="text-primary icon icon-clone"></i> Duplicar</a>
+													<?php } ?>
+													<?php if ($dados['id'] != 0) { ?>
+														<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'deletar')) { ?>
+															<a class="dropdown-item" onclick="DeletarItem(<?= $dados['id']; ?>, 'DeletarItem');" href="#!"><i class="text-danger icon icon-remove"></i> Excluir</a>
 														<?php } ?>
-														<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'adicionar')) { ?>
-															<a class="dropdown-item" href="?DuplicarItem=<?= $dados['id']; ?>"><i class="text-primary icon icon-clone"></i> Duplicar</a>
-														<?php } ?>
-														<?php if ($dados['id'] != 0) { ?>
-															<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'deletar')) { ?>
-																<a class="dropdown-item" onclick="DeletarItem(<?= $dados['id']; ?>, 'DeletarItem');" href="#!"><i class="text-danger icon icon-remove"></i> Excluir</a>
-															<?php } ?>
-														<?php } ?>
-													</div>
+													<?php } ?>
 												</div>
-											</td>
-										</tr>
-									<?php }
-								} else { ?>
-									<div class="card-body">
-										<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'adicionar')) { ?>
-											<div class="alert alert-info">Nenhum item adicionado até o momento, <a href="?AdicionarItem=<?= $_GET['VisualizarCategoria']; ?>">clique aqui</a> para adicionar.</div>
-										<?php } ?>
-									</div>
-								<?php } ?>
-							</table>
-						</div>
-					</div>
+											</div>
+										</td>
+									</tr>
+								<?php }
+							} else { ?>
+								<div class="card-body">
+									<?php if (checkPermission($PERMISSION, $_SERVER['SCRIPT_NAME'], 'item', 'adicionar')) { ?>
+										<div class="alert alert-info">Nenhum item adicionado até o momento, <a href="?AdicionarItem=<?= $_GET['VisualizarCategoria']; ?>">clique aqui</a> para adicionar.</div>
+									<?php } ?>
+								</div>
+							<?php } ?>
+						</table>
+					</div>					
 				</div>
 			</div>
 		<?php } else { ?>
@@ -463,7 +457,7 @@
 
 				<div class="card-body p-0">
 				
-					<div class="table-responsive">
+					<div class="table-responsive" style="overflow-x: visible !important">
 						<table id="DataTable" class="table m-0 table-striped">
 							<?php 
 							$Query = DBRead('c_slide_produtos', '*');
@@ -479,14 +473,11 @@
 
 
 							<?php 
-								foreach ($Query as $dados) { 
-									
-									$CodSite  = '<div id="SlideProdutosWA' . $dados['id'] . '" data-painel="' . RemoveHttpS(ConfigPainel('base_url')) . '"></div>' . "\n";
-									$CodSite .= '<script>SlideProdutos(' . $dados['id'] . ');</script>';
-									$CodSiteWA4 = '<iframe width="100%" height="100%" src="' . RemoveHttpS(ConfigPainel('base_url')) . '/wa/slide_produtos.php?id=' . $dados['id'] . '&Wa4" frameborder="0"></iframe>';
-									$codWAF  = '<style>#SlideProdutosWA{position:absolute;background-color: transparent;background-position: center top;background-repeat: no-repeat;width:100%;left:0px;height:100%; top:100px;}</style>';
-									$codWAF .= '<div id="SlideProdutosWA"><iframe src = "' . RemoveHttpS(ConfigPainel('base_url')) . '/wa/slide_produtos.php?id=' . $dados['id'] . '&Wa4" scrolling="no" style = "width: 100%; height: 100%;  overflow: auto; border: none" > </iframe></div>';
-							?>
+								foreach ($Query as $dados) { 							
+								
+									 $CodSite  ='<iframe onload="Sframe(this)" id="Sframe" src="https://www.localhost/Wa.Control/wa/slide_produtos/?id='.$dados['id'].'" ></iframe>';
+		
+									?>
 									<tr>
 										<td><?= $dados['id']; ?></td>
 										<td><?= $dados['categoria']; ?></td>
