@@ -1,6 +1,6 @@
 Sframe = (a) => {
     a.style.height= '0px';
-    a.style.height = (a.contentWindow.document.documentElement.scrollHeight+200) + 'px';
+    a.style.height = (a.contentWindow.document.documentElement.scrollHeight+50) + 'px';
     let border = document.createAttribute('frameborder');
     let scroll = document.createAttribute('scrolling');
     let widths = document.createAttribute('width');

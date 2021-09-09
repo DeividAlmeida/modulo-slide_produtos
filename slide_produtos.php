@@ -76,7 +76,7 @@
 
 								<div class="form-group">
 									<label>Preço:</label>
-									<input class="form-control" type="number" name="preco" value="<?= $dados['preco'] ?? ''; ?>">
+									<input class="form-control" type="number" name="preco" step="any" value="<?= $dados['preco'] ?? ''; ?>">
 								</div>
 
 								<div class="form-group">
@@ -107,7 +107,7 @@
 										
 								<div class="form-group">
 									<label>Preço Cortado:</label>
-									<input class="form-control" name="preco_c" type="number" value="<?= $dados['preco_c'] ?? ''; ?>">
+									<input class="form-control" step="any" name="preco_c" type="number" value="<?= $dados['preco_c'] ?? ''; ?>">
 								</div>
 
 								<div class="form-group">
@@ -156,7 +156,7 @@
 						<strong>Salvar Listagem</strong>
 					</div>
 
-					<div class="card-body">	
+					<div class="card-body">
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
@@ -164,7 +164,7 @@
 									<input class="form-control" name="categoria" value="<?= $c_dados['categoria'] ?? ''; ?>" required>
 								</div>
 							</div>
-						</div>					
+						</div>						
 						<div class="row">
 							<div class="col">
 								<div class="row">
@@ -475,7 +475,7 @@
 							<?php 
 								foreach ($Query as $dados) { 							
 								
-									 $CodSite  ='<iframe onload="Sframe(this)" id="Sframe" src="https://www.localhost/Wa.Control/wa/slide_produtos/?id='.$dados['id'].'" ></iframe>';
+									 $CodSite  ='<iframe onload="Sframe(this)" id="Sframe" src="' . RemoveHttpS(ConfigPainel('base_url')) . 'wa/slide_produtos/?id='.$dados['id'].'" ></iframe>';
 		
 									?>
 									<tr>

@@ -29,7 +29,6 @@ if ($id != '0') {
 	<link rel="stylesheet" href="src/style/element-pack-site.css">
 	<link rel="stylesheet" href="src/style/ep-advanced-button.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
 	<style>
 	<?php if (!empty($categoria['font_title'])) : ?>@import url("https://fonts.googleapis.com/css?family=<?= $categoria['font_title']; ?>");
 	<?php endif; ?>
@@ -91,8 +90,7 @@ if ($id != '0') {
 							<div class="elementor-inner">
 								<div class="elementor-section-wrap">
 								<?php if (is_array($Query)) : ?>
-									<section
-										class="elementor-section elementor-top-section elementor-element elementor-element-339fc32 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+									<section	class="elementor-section elementor-top-section elementor-element elementor-element-339fc32 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
 										data-id="339fc32" data-element_type="section"
 										data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"
 										style="opacity: 1;">
@@ -106,35 +104,41 @@ if ($id != '0') {
 																data-id="63e9d76" data-element_type="widget"
 																data-widget_type="bdt-wc-slider.default">
 																<div class="elementor-widget-container">
-																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:true,&quot;autoplay-interval&quot;:<?= $categoria['seconds']; ?>,&quot;velocity&quot;:1}"
+																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:true,&quot;autoplay-interval&quot;:<?= $categoria['seconds']*100; ?>,&quot;velocity&quot;:1}"
 																		class="bdt-wc-slider bdt-arrows-align-bottom-right bdt-slideshow">
 																		<div
 																			class="bdt-position-relative bdt-visible-toggle">
 																			<ul class="bdt-slideshow-items bdt-child-width-1-1"
 																				style="min-height: 600px;">
-																				<?php foreach ($Query as $dados) : ?>
-																				<li class="bdt-slideshow-item bdt-active bdt-transition-active"
+																				<?php foreach ($Query as  $dados) { ?>
+																				<li class="bdt-slideshow-item"
 																					tabindex="-1" >
 																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1"
 																						data-bdt-grid="">
-																						<div
-																							class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
-																							<div
-																								class="bdt-slideshow-content-wrapper bdt-padding bdt-text-left">
+																						<div class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
+																							<div	class="bdt-slideshow-content-wrapper bdt-padding bdt-text-left">
 
-																								<div
-																									class="bdt-wc-slider-price">
-																									<div
-																										class="wae-product-price">
-																										<p
-																											class="price">
-																											<del id="preco"
-																												aria-hidden="true"><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">R$</span><?= $dados['preco_c']; ?></bdi></span></del>
-																											<ins id="preco"><span
-																													class="woocommerce-Price-amount amount"><bdi><span
-																															class="woocommerce-Price-currencySymbol">R$</span><?= $dados['preco']; ?></bdi></span></ins>
+																								<div	class="bdt-wc-slider-price">
+																									<div class="wae-product-price">
+																										<p	class="price">
+																											<?php if(count($dados['preco_c'])>0){ ?>
+																												<del aria-hidden="true">
+																														<span	class="woocommerce-Price-amount amount">
+																														<bdi>
+																															<span	class="woocommerce-Price-currencySymbol">R$</span>
+																															<?= $dados['preco_c']; ?>
+																														</bdi>
+																													</span>
+																												</del>	
+																												<?php } ?>																										
+																											<ins >
+																												<span	class="woocommerce-Price-amount amount">
+																													<bdi>
+																														<span class="woocommerce-Price-currencySymbol">R$</span>
+																														<?= $dados['preco']; ?>
+																													</bdi>
+																												</span>
+																											</ins>
 																										</p>
 																									</div>
 																								</div>
@@ -178,7 +182,7 @@ if ($id != '0') {
 
 																					</div>
 																				</li>
-																				<?php endforeach; ?>																				
+																				<?php } ?>																				
 																			</ul>
 
 																			<div
