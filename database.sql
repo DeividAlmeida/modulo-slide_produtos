@@ -40,3 +40,5 @@ CREATE TABLE IF NOT EXISTS `c_slide_produtos` (
   `font_desc` varchar(255) DEFAULT NULL,
   `cor_icone_hover` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+ALTER TABLE `slide_produtos` ADD `tipo` VARCHAR(255) NULL AFTER `ordem`;

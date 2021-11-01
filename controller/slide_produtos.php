@@ -27,6 +27,7 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 		'preco' 		=> post('preco'),
 		'preco_c' 		=> post('preco_c'),
 		'txt_botao' 	=> post('txt_botao'),
+		'tipo' 			=> post('tipo'),
 		'url' 			=> post('url'),
 		'ordem' 		=> (!empty(post('ordem'))) ? post('ordem') : 1,
 		'destino_url' 	=> post('destino_url'),

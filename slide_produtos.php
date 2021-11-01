@@ -7,6 +7,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link rel="stylesheet" href="assets/plugins/iconpicker/bootstrap-iconpicker.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<style>
+	.multiselect__tag, .multiselect__option--highlight, .multiselect__tag-icon, .multiselect__tag-icon:after{ background: #86939e !important}
+</style>
 <div class="has-sidebar-left">
 	<header class="blue accent-3 relative nav-sticky">
 		<div class="container-fluid text-white">
@@ -79,11 +85,29 @@
 									<input class="form-control" type="number" name="preco" step="any" value="<?= $dados['preco'] ?? ''; ?>">
 								</div>
 
-								<div class="form-group">
-									<label>URL:</label>
-									<input class="form-control" name="url" value="<?= $dados['url'] ?? ''; ?>">
-									<small>Deixe esse campo em branco para que seu slider não possua nenhum link.</small>
+								<div id="pdtv">
+									<div class="form-group">
+										<label>Tipo de link:</label>
+										<select  class="form-control" name="tipo" v-model="tipo" >
+											<option value="">Escolha uma opção</option>
+											<option value="externo">Link Externo</option>
+											<option value="interno">Produto da Loja</option>
+										</select>
+									</div>							
+									<div v-if="tipo=='externo'" class="form-group" >
+										<label>URL:</label>
+										<input class="form-control" name="url" v-model="url">
+										<small>Deixe esse campo em branco para que seu slider não possua nenhum link.</small>
+									</div>
+									<div v-if="tipo=='interno'" class="form-group" >
+										<label>Produto:</label>
+										<multiselect placeholder="Selecione um Produto" @select="link" v-model="pdt" :options="produto" track-by="nome" label="nome" :show-labels="false" >
+										<span slot="noResult">Não há produto disponível.</span>
+										</multiselect>
+									</div>
+									<input type="hidden" name="url" :value="url">
 								</div>
+							
 							</div>
 
 							<div class="col-md-6">
@@ -560,7 +584,27 @@
 			</div>
 		</div>
 	</div>
+	<?php $produtos = json_encode(DBRead('ecommerce','*')); ?>
 	<script type="text/javascript">
+	    const vue = new Vue({
+			el:"#pdtv",        
+			components: { Multiselect: window.VueMultiselect.default },
+			data:{
+				produto: <?= $produtos ?>,
+				url: "<?= $dados['url'] ?? ''; ?>", 
+				tipo:"<?= $dados['tipo'] ?? ''; ?>",
+				pdt:null
+			},
+			methods:{
+				link(event){
+					this.url = "<?=ConfigPainel('site_url')?>"+event.url+"-"+event.id+".html"
+				}
+			},
+			created() {
+				if(this.type != '') return 	this.produto.filter(a=>{if(a.id==Math.abs(this.url.substring(this.url.lastIndexOf("-"),this.url.search('.html')))){this.pdt=a}})
+				 
+			}
+		})
 		function CopiadoCodSiteWa4Full(id) {
 			var clipboard = new Clipboard('#btnCopiarCodSiteWa4full' + id);
 			clipboard.on('success', function(e) {
@@ -575,4 +619,5 @@
 		});
 
 		$('.target').iconpicker();
+
 	</script>
