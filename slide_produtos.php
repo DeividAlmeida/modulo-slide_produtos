@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 <style>
 	.multiselect__tag, .multiselect__option--highlight, .multiselect__tag-icon, .multiselect__tag-icon:after{ background: #86939e !important}
+	.slow  .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
 </style>
 <div class="has-sidebar-left">
 	<header class="blue accent-3 relative nav-sticky">
@@ -81,7 +82,7 @@
 								</div>
 
 								<div class="form-group">
-									<label>Preço:</label>
+									<label>Preço em Oferta:</label>
 									<input class="form-control" type="number" name="preco" step="any" value="<?= $dados['preco'] ?? ''; ?>">
 								</div>
 
@@ -144,6 +145,12 @@
 									<label>Ordenar:</label>
 									<input class="form-control" type="number" name="ordem" value="<?= $dados['ordem'] ?? ''; ?>">
 								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label> Descrição:</label>
+									<textarea class="form-control" name="descricao" value="<?= $dados['descricao'] ?? ''; ?>" rows="3"><?= $dados['descricao'] ?? ''; ?></textarea>
+								</div>
 							</div>							
 						</div>
 
@@ -194,7 +201,7 @@
 								<div class="row">
 									<div class="col">
 										<div class="form-group">
-											<label>Cor do Preço:</label>
+											<label>Cor do Preço em Oferta:</label>
 											<div class="color-picker input-group colorpicker-element focused">
 												<input type="text" value="<?= $c_dados['cor_bg'] ?? ''; ?>" name="cor_bg" class="form-control">
 												<span class="input-group-append">
@@ -430,6 +437,7 @@
 									<th>Imagem</th>
 									<th>Titulo</th>
 									<th>Categoria</th>
+									<th>Status</th>
 									<th width="53px">Ações</th>
 								</tr>
 								<?php
@@ -439,6 +447,7 @@
 										<td width="150"><img class="no-b no-p r-5" src="wa/slide_produtos/uploads/<?= $dados['imagem']; ?>" /></td>
 										<td><?= LimitarTexto($dados['titulo'], '80', '...'); ?></td>
 										<td><?= VerificaCategoriaItem($dados['id_categoria'], 'c_slide_produtos'); ?></td>
+										<td><input type="checkbox" <?= $dados['status']; ?> onchange="status()" id="<?= $dados['id']; ?>"   data-toggle="toggle" data-style="slow" data-on="<i class='icon icon-check-square-o'></i>Ativo" data-off="<i class='icon icon-minus-square'></i>Inativo" data-onstyle="success" data-offstyle="danger"></td>
 										<td>
 											<div class="dropdown">
 												<a class="" href="#" data-toggle="dropdown">
@@ -605,6 +614,14 @@
 				 
 			}
 		})
+		function status() {
+			if(event.target.control.checked){
+				fetch('?Status=checked&id='+event.target.control.id)
+			}else{
+				fetch('?Status=null&id='+event.target.control.id)
+			}
+			swal("Status Atualizado!", "Status de item atualizado com sucesso!", "success")
+		}
 		function CopiadoCodSiteWa4Full(id) {
 			var clipboard = new Clipboard('#btnCopiarCodSiteWa4full' + id);
 			clipboard.on('success', function(e) {
@@ -621,3 +638,5 @@
 		$('.target').iconpicker();
 
 	</script>
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

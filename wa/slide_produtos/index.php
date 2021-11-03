@@ -13,9 +13,9 @@ $QueryCat 	= DBRead('c_slide_produtos', '*', "WHERE id = '{$id}'");
 $categoria 	= $QueryCat[0];
 
 if ($id != '0') {
-	$Query = DBRead('slide_produtos', '*', "WHERE id_categoria = '{$id}' ORDER BY ordem ASC");
+	$Query = DBRead('slide_produtos', '*', "WHERE id_categoria = '{$id}' AND status = 'checked' ORDER BY ordem ASC");
 } else {
-	$Query = DBRead('slide_produtos', '*', "ORDER BY ordem ASC");
+	$Query = DBRead('slide_produtos', '*', "WHERE status = 'checked' ORDER BY ordem ASC");
 }
 ?>
 <html lang="pt-BR" >
@@ -104,7 +104,7 @@ if ($id != '0') {
 																data-id="63e9d76" data-element_type="widget"
 																data-widget_type="bdt-wc-slider.default">
 																<div class="elementor-widget-container">
-																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:true,&quot;autoplay-interval&quot;:<?= $categoria['seconds']*100; ?>,&quot;velocity&quot;:1}"
+																	<div data-bdt-slideshow="{&quot;animation&quot;:&quot;slide&quot;,&quot;ratio&quot;:&quot;1920:768&quot;,&quot;min-height&quot;:600,&quot;autoplay&quot;:<?= $categoria['seconds']?'true':'false'?>,&quot;autoplay-interval&quot;:<?= $categoria['seconds']*1000; ?>,&quot;velocity&quot;:1}"
 																		class="bdt-wc-slider bdt-arrows-align-bottom-right bdt-slideshow">
 																		<div
 																			class="bdt-position-relative bdt-visible-toggle">
@@ -147,10 +147,12 @@ if ($id != '0') {
 																									<?= $dados['titulo']; ?>
 																								</p>
 
-																								<div
-																									class="bdt-wc-rating bdt-flex bdt-flex-left">
+																								<div class="bdt-wc-rating bdt-flex bdt-flex-left"></div>
+																								<div class="bdt-wc-slider-text">
+																									<p>
+																										<?= $dados['descricao']; ?>
+																									</p>
 																								</div>
-
 
 																								<div
 																									class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-left bdt-flex-middle">

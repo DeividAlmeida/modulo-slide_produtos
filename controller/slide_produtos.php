@@ -31,6 +31,7 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 		'url' 			=> post('url'),
 		'ordem' 		=> (!empty(post('ordem'))) ? post('ordem') : 1,
 		'destino_url' 	=> post('destino_url'),
+		'descricao' 	=> post('descricao'),
 		'id_categoria' 	=> post('id_categoria')
 	);
 
@@ -58,13 +59,17 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 	if (isset($_GET['Atualizar'])) {
 		$Query = DBUpdate('slide_produtos', $dataArray, "id = '{$id}'");
 	}
-
+	
 	if ($Query != 0) {
 		$id_categoria = post('id_categoria');
 		Redireciona("?VisualizarCategoria={$id_categoria}&sucesso");
 	} else {
 		Redireciona('?VisualizarCategoria={$id_categoria}&erro');
 	}
+}
+
+if (isset($_GET['Status'])) {
+	$Query = DBUpdate('slide_produtos', ['status'=>$_GET['Status']], "id = '{$_GET['id']}'");
 }
 
 if (isset($_GET['DuplicarItem'])) {

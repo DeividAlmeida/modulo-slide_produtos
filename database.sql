@@ -10,8 +10,11 @@ CREATE TABLE IF NOT EXISTS `slide_produtos` (
   `imagem` varchar(255) DEFAULT NULL,
   `titulo` varchar(255) DEFAULT NULL,
   `conteudo` text DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
   `txt_botao` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `destino_url` varchar(25) DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL,
   `preco` FLOAT(50,2) DEFAULT NULL,
@@ -40,5 +43,3 @@ CREATE TABLE IF NOT EXISTS `c_slide_produtos` (
   `font_desc` varchar(255) DEFAULT NULL,
   `cor_icone_hover` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-ALTER TABLE `slide_produtos` ADD `tipo` VARCHAR(255) NULL AFTER `ordem`;
