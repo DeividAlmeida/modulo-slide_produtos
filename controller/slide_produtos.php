@@ -31,6 +31,8 @@ if (isset($_GET['Atualizar']) || isset($_GET['Adicionar'])) {
 		'url' 			=> post('url'),
 		'ordem' 		=> (!empty(post('ordem'))) ? post('ordem') : 1,
 		'destino_url' 	=> post('destino_url'),
+		'timer' 		=> post('timer'),
+		'data_timer' 	=> post('data_timer'),
 		'descricao' 	=> post('descricao'),
 		'id_categoria' 	=> post('id_categoria')
 	);
@@ -143,10 +145,15 @@ if (isset($_GET['AddCategoria']) || isset($_GET['AtualizarCategoria'])) {
 
 		'cor_titulo' 	    => post('cor_titulo'),
 
+		'cor_descricao' 	=> post('cor_descricao'),
+
 		'cor_icone' 	    => post('cor_icone'),
 		'cor_icone_hover' 	=> post('cor_icone_hover'),
 
 		'seconds' 			=> post('seconds') ,
+
+		'cor_timer' 		=> post('cor_timer') ,
+		'cor_text_timer' 	=> post('cor_text_timer') ,
 
 		'size_title' 	    => post('size_title'),
 		'weight_title' 	    => post('weight_title'),

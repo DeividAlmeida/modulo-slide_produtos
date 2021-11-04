@@ -35,42 +35,157 @@ if ($id != '0') {
 	<?php if (!empty($categoria['font_desc'])) : ?>@import url("https://fonts.googleapis.com/css?family=<?= $categoria['font_desc']; ?>");
 
 	<?php endif; ?>
+	#countdown{
+		display			: flex;
+		white-space		: nowrap;
+		display			: flex;
+		white-space		: nowrap;
+		background		: <?= $categoria['cor_timer']; ?>  !important;
+		color			: <?= $categoria['cor_text_timer']; ?>  !important;
+		padding			: 10px;
+		border-radius	: 15px;
+	}
 	.bdt-wc-slider-title{
-		font-family: <?= $categoria['font_title']; ?> !important;
-		color: <?= $categoria['cor_titulo']; ?> !important;
-		font-size: <?= $categoria['size_title']; ?> !important;
-		font-weight: <?= $categoria['weight_title']; ?> !important;
+		font-family	: <?= $categoria['font_title']; ?> !important;
+		color		: <?= $categoria['cor_titulo']; ?> !important;
+		font-size	: <?= $categoria['size_title']; ?> !important;
+		font-weight	: <?= $categoria['weight_title']; ?> !important;
+	}
+	#descricao{
+		color		: <?= $categoria['cor_descricao']; ?> !important;
+		margin		: 0px;
 	}
 	.bdt-wc-slider .bdt-wc-slider-price{
-		font-family: <?= $categoria['font_desc']; ?> !important;		
-		font-size: <?= $categoria['size_desc']; ?> !important;
-		font-weight: <?= $categoria['weight_desc']; ?> !important;
+		font-family	: <?= $categoria['font_desc']; ?> !important;		
+		font-size	: <?= $categoria['size_desc']; ?> !important;
+		font-weight : <?= $categoria['weight_desc']; ?> !important;
 	}
 	ins{
-		color: <?= $categoria['cor_bg']; ?> !important;
+		color	: <?= $categoria['cor_bg']; ?> !important;
 	}
 	del{
-		color: <?= $categoria['cor_bg_hover']; ?> !important;
+		color	: <?= $categoria['cor_bg_hover']; ?> !important;
 
 	}
 	.fa-chevron-circle-left, .fa-chevron-circle-right{
-		cursor: pointer;
-		color: <?= $categoria['cor_icone']; ?> !important;
-		border: 2px solid <?= $categoria['cor_icone']; ?> !important;
+		cursor	: pointer;
+		color	: <?= $categoria['cor_icone']; ?> !important;
+		border	: 2px solid <?= $categoria['cor_icone']; ?> !important;
 	}
 	.fa-chevron-circle-left:hover, .fa-chevron-circle-right:hover  {
-		color: <?= $categoria['cor_icone_hover']; ?> !important;
-		border: 2px solid <?= $categoria['cor_icone_hover']; ?> !important;
+		color	: <?= $categoria['cor_icone_hover']; ?> !important;
+		border	: 2px solid <?= $categoria['cor_icone_hover']; ?> !important;
 	}
 	.bdt-wc-slider .bdt-wc-add-to-cart a:hover{
-		background: <?= $categoria['cor_btn_hover']; ?> !important;
-		color: <?= $categoria['cor_btn_txt_hover']; ?> !important;
-		border: 2px solid <?= $categoria['cor_btn_hover']; ?> !important;
+		background	: <?= $categoria['cor_btn_hover']; ?> !important;
+		color		: <?= $categoria['cor_btn_txt_hover']; ?> !important;
+		border		: 2px solid <?= $categoria['cor_btn_hover']; ?> !important;
 	}
 	.bdt-wc-slider .bdt-wc-add-to-cart a{
-		background: <?= $categoria['cor_btn']; ?> !important;
-		color: <?= $categoria['cor_btn_txt']; ?> !important;
-		border: 2px solid <?= $categoria['cor_btn']; ?> !important;
+		background	: <?= $categoria['cor_btn']; ?> !important;
+		color		: <?= $categoria['cor_btn_txt']; ?> !important;
+		border		: 2px solid <?= $categoria['cor_btn']; ?> !important;
+	}
+	.w-100{
+		width	: 100% !important;
+	}
+	.justify-content-between{
+		justify-content	: space-between !important;
+	}
+	.bdt-controle{
+		position	: relative !important;
+		bottom		: 350px;
+	}
+
+	.bdt-wc-slider .bdt-wc-slider-image img{
+		object-fit	: contain !important;
+		width		: 80% !important;
+		height		: auto;
+		margin		: 80px 80px 80px 0px;
+	}
+
+	.info{
+		margin-left	:80px
+	}
+	#clock{
+		list-style-type			: none;
+		display					: grid;
+		grid-template-columns	: 40px 40px 40px 25px;
+		padding					: 1px;
+
+	}
+	ul#clock>li{
+		display			: flex;
+		justify-content	: center;
+	}
+	ul#clock>li.number{
+		font-weight : bold;
+		font-size:25px;
+	}
+	#countdown>label{
+		margin: 9px 0px 0px 2px
+	}
+	@media only screen and (max-width:960px) {
+		.bdt-controle{
+			bottom: 250px !important;
+		}
+
+		.bdt-wc-slider .bdt-wc-slider-image> img{
+			margin		:80px 80px 80px 0px;
+		}
+
+		.bdt-wc-slider .bdt-slider-item-content{
+			background	: transparent !important;
+			bottom		: 330px !important;
+		}
+
+		.info{
+			margin	:0px !important;
+		}
+
+		.bdt-wc-slider.bdt-slideshow .bdt-slideshow-content-wrapper{
+			text-align	: center !important;
+			padding 	: 0px !important;
+			position	: relative !important;
+		}
+
+		.bdt-wc-slider.bdt-slideshow .bdt-slideshow-content-wrapper .bdt-wc-add-to-cart-readmore{
+			justify-content	: center !important;
+		}
+
+		.bdt-wc-slider .bdt-wc-slider-image> img{
+			margin	: 0px !important;
+			height	: 50% !important;
+			position: absolute !important;
+			top	: 290px !important;
+		}
+
+		.bdt-wc-slider .bdt-wc-slider-image{
+			display	: contents !important;
+		}
+
+		.bdt-wc-slider .bdt-slideshow-item-inner .bdt-mobile-order{
+			justify-content	: center !important;
+		}
+
+		.bdt-wc-slider .bdt-navigation-prev, .bdt-wc-slider .bdt-navigation-prev, .bdt-wc-slider .bdt-navigation-next{
+			margin	: 0px !important;
+		}
+
+	}
+	@media only screen and (max-width: 375px) {
+		.bdt-wc-slider .bdt-wc-slider-image> img{
+			margin	: 0px !important;
+			width	: 100% !important;
+			position: absolute !important;
+			bottom	: 0px !important;
+		}
+		.bdt-wc-slider.bdt-slideshow .bdt-slideshow-content-wrapper{
+			text-align	: center !important;
+			padding 	: 0px !important;
+			position	: relative !important;
+			top			:10px !important;
+		}
 	}
 	</style>
 </head>
@@ -116,7 +231,7 @@ if ($id != '0') {
 																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1"
 																						data-bdt-grid="">
 																						<div class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
-																							<div	class="bdt-slideshow-content-wrapper bdt-padding bdt-text-left">
+																							<div class="bdt-slideshow-content-wrapper bdt-padding bdt-text-right info">
 
 																								<div	class="bdt-wc-slider-price">
 																									<div class="wae-product-price">
@@ -148,16 +263,31 @@ if ($id != '0') {
 																								</p>
 
 																								<div class="bdt-wc-rating bdt-flex bdt-flex-left"></div>
-																								<div class="bdt-wc-slider-text">
-																									<p>
+																								<div class="bdt-wc-slider-text bdt-visible@m">
+																									<p id="descricao">
 																										<?= $dados['descricao']; ?>
 																									</p>
 																								</div>
 
-																								<div
-																									class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-left bdt-flex-middle">
-																									<div
-																										class="bdt-wc-add-to-cart">
+																								<div class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-right bdt-flex-middle" >
+																									<?php if($dados['timer'] == 'padrao' || $dados['timer'] == 'loop'){ ?>
+																										<div id="countdown" data-type="<?=$dados['timer']?>" data-timer="<?= $dados['data_timer']?>" data-id="<?= $dados['id']?>">
+																											<label> Oferta acaba em:</label>
+																											<ul id="clock" class="timer">
+																												<li class="number" id="days"></li>
+																												<li class="number" id="hours"></li>
+																												<li class="number" id="minutes"></li>
+																												<li class="number" id="seconds"></li>
+																												<li class="text">Dias</li>
+																												<li class="text">Horas</li>
+																												<li class="text">Min</li>
+																												<li class="text">Seg</li>
+																											</ul>
+																										</div>
+																								<?php } ?>
+																								</div>
+																								<div class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-right bdt-flex-middle">
+																									<div class="bdt-wc-add-to-cart">
 																										<a target="<?= $dados['destino_url']; ?>" href="<?= $dados['url']; ?>"
 																											data-quantity="1"
 																											class="button product_type_simple add_to_cart_button ajax_add_to_cart"
@@ -187,18 +317,12 @@ if ($id != '0') {
 																				<?php } ?>																				
 																			</ul>
 
-																			<div
-																				class="bdt-position-z-index bdt-position-bottom-right bdt-visible@m">
-																				<div
-																					class="bdt-arrows-container bdt-slidenav-container">
-																					<a 
-																						class="bdt-navigation-prev bdt-slidenav-previous bdt-icon bdt-slidenav"
-																						data-bdt-slideshow-item="previous">
+																			<div class="bdt-position-z-index bdt-position-bottom-right  w-100 bdt-controle">
+																				<div class="bdt-arrows-container bdt-slidenav-container w-100 justify-content-between">
+																					<a class="bdt-navigation-prev bdt-slidenav-previous bdt-icon bdt-slidenav"	data-bdt-slideshow-item="previous" style="margin-left:10px">
 																						<i class="fas fa-chevron-circle-left"></i>
 																					</a>
-																					<a 
-																						class="bdt-navigation-next bdt-slidenav-next bdt-icon bdt-slidenav"
-																						data-bdt-slideshow-item="next">
+																					<a class="bdt-navigation-next bdt-slidenav-next bdt-icon bdt-slidenav" data-bdt-slideshow-item="next" style="margin-right:20px">
 																						<i class="fas fa-chevron-circle-right"></i>
 																					</a>
 																				</div>
@@ -224,6 +348,67 @@ if ($id != '0') {
 			</div> 
 		</div> 
 	</div> 
+	<script>
+
+document.querySelectorAll('#countdown').forEach(a=>{
+		const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24,
+		tipo = a.getAttribute('data-type');
+
+		//I'm adding this section so I don't have to keep updating this pen every year :-)
+		//remove this if you don't need it
+		let today = new Date(),
+		dd = String(today.getDate()).padStart(2, "0"),
+		mm = String(today.getMonth() + 1).padStart(2, "0"),
+		yyyy = today.getFullYear(),
+		nextYear = yyyy + 1,
+		birthday =  a.getAttribute('data-timer')
+
+  		today = mm + "-" + dd + "-" + yyyy;
+		  tipo == 'loop'? birthday = yyyy + "-" + mm + "-" + dd+"T"+birthday: void(0);
+		if (today > birthday) {
+			birthday = dayMonth + nextYear;
+		}
+  		//end
+  		let countDown = new Date(birthday).getTime(),
+      	x = setInterval(function() {    
+	
+        let now = new Date().getTime(),
+           distance = countDown - now;
+		if( distance <= 0 && tipo == 'loop') {
+			let minutos = (parseInt(a.getAttribute('data-timer').slice(0,2))*60)+parseInt(a.getAttribute('data-timer').slice(3))
+			countDown = new Date().getTime()+minutos*60000
+			if(!localStorage.getItem(a.getAttribute('data-id')+'counterWA')){
+				distance = countDown - now;
+				localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+			}else{
+				if(localStorage.getItem(a.getAttribute('data-id')+'counterWA') <= 0 && tipo == 'loop'){
+					distance = countDown - now;
+					localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+				}else{
+					distance = parseInt(localStorage.getItem(a.getAttribute('data-id')+'counterWA'))
+					localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+				}
+			}
+		}
+
+		  a.childNodes[3].childNodes[1].innerText = Math.floor(distance / (day)),
+          a.childNodes[3].childNodes[3].innerText = Math.floor((distance % (day)) / (hour)),
+          a.childNodes[3].childNodes[5].innerText = Math.floor((distance % (hour)) / (minute)),
+          a.childNodes[3].childNodes[7].innerText = Math.floor((distance % (minute)) / second);
+
+        //do something later when date is reached
+        if (distance <= 0 && tipo == 'padrao') {
+			a.remove()
+          	clearInterval(x);
+        }
+        //seconds
+      }, 0)
+	})
+
+	</script>
 	<script type="text/javascript"	src="src/script/bdt-uikit.min.js"></script>
 </body>
 

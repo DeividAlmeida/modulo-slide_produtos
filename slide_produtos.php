@@ -62,7 +62,7 @@
 
 			VerificaCategoria('c_slide_produtos');
 		?>
-			<form method="post" action="<?= $post; ?>" enctype="multipart/form-data">
+			<form method="post" action="<?= $post; ?>" enctype="multipart/form-data"  id="pdtv">
 				<div class="card">
 					<div class="card-header  white">
 						<strong>Salvar Item</strong>
@@ -86,29 +86,37 @@
 									<input class="form-control" type="number" name="preco" step="any" value="<?= $dados['preco'] ?? ''; ?>">
 								</div>
 
-								<div id="pdtv">
-									<div class="form-group">
-										<label>Tipo de link:</label>
-										<select  class="form-control" name="tipo" v-model="tipo" >
-											<option value="">Escolha uma opção</option>
-											<option value="externo">Link Externo</option>
-											<option value="interno">Produto da Loja</option>
-										</select>
-									</div>							
-									<div v-if="tipo=='externo'" class="form-group" >
-										<label>URL:</label>
-										<input class="form-control" name="url" v-model="url">
-										<small>Deixe esse campo em branco para que seu slider não possua nenhum link.</small>
-									</div>
-									<div v-if="tipo=='interno'" class="form-group" >
-										<label>Produto:</label>
-										<multiselect placeholder="Selecione um Produto" @select="link" v-model="pdt" :options="produto" track-by="nome" label="nome" :show-labels="false" >
-										<span slot="noResult">Não há produto disponível.</span>
-										</multiselect>
-									</div>
-									<input type="hidden" name="url" :value="url">
+								
+								<div class="form-group">
+									<label>Tipo de link:</label>
+									<select  class="form-control" name="tipo" v-model="tipo" >
+										<option value="">Escolha uma opção</option>
+										<option value="externo">Link Externo</option>
+										<option value="interno">Produto da Loja</option>
+									</select>
+								</div>							
+								<div v-if="tipo=='externo'" class="form-group" >
+									<label>URL:</label>
+									<input class="form-control" name="url" v-model="url">
+									<small>Deixe esse campo em branco para que seu slider não possua nenhum link.</small>
 								</div>
-							
+								<div v-if="tipo=='interno'" class="form-group" >
+									<label>Produto:</label>
+									<multiselect placeholder="Selecione um Produto" @select="link" v-model="pdt" :options="produto" track-by="nome" label="nome" :show-labels="false" >
+									<span slot="noResult">Não há produto disponível.</span>
+									</multiselect>
+								</div>
+								<input type="hidden" name="url" :value="url">
+								<div class="form-group">
+									<label>Timer:</label>
+									<select  class="form-control" name="timer" v-model="timer" >
+										<option value="">Escolha uma opção</option>
+										<option value="nada">Sem Timer</option>
+										<option value="padrao">Timer Padrão</option>
+										<option value="loop">Timer Loop</option>
+									</select>
+								</div>							
+								
 							</div>
 
 							<div class="col-md-6">
@@ -144,6 +152,11 @@
 								<div class="form-group">
 									<label>Ordenar:</label>
 									<input class="form-control" type="number" name="ordem" value="<?= $dados['ordem'] ?? ''; ?>">
+								</div>
+
+								<div  class="form-group" v-if="timer == 'padrao' || timer == 'loop'">
+									<label>Tempo:</label>
+									<input class="form-control" :type="timer == 'loop'? 'time':'datetime-local'" name="data_timer" v-model="data_timer">
 								</div>
 							</div>
 							<div class="col-12">
@@ -285,6 +298,15 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">									
+									<div class="col">
+										<div class="form-group">
+											<label>Tempo de transição em segundos:</label>
+											<input type="number" class="form-control" name="seconds" value="<?= $c_dados['seconds'] ?? ''; ?>">
+											<em>Deixe em branco para transição manual</em>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="col">
 								<div class="row">
@@ -293,6 +315,19 @@
 											<label>Cor Titulo:</label>
 											<div class="color-picker input-group colorpicker-element focused">
 												<input type="text" value="<?= $c_dados['cor_titulo'] ?? ''; ?>" name="cor_titulo" class="form-control">
+												<span class="input-group-append">
+													<span class="input-group-text add-on white">
+														<i class="circle" style="background-color: rgb(0, 170, 187);"></i>
+													</span>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col">
+										<div class="form-group">
+											<label>Cor Descrição:</label>
+											<div class="color-picker input-group colorpicker-element focused">
+												<input type="text" value="<?= $c_dados['cor_descricao'] ?? ''; ?>" name="cor_descricao" class="form-control">
 												<span class="input-group-append">
 													<span class="input-group-text add-on white">
 														<i class="circle" style="background-color: rgb(0, 170, 187);"></i>
@@ -332,15 +367,34 @@
 									</div>
 								</div>
 
-								<div class="row">									
+								<div class="row">
 									<div class="col">
 										<div class="form-group">
-											<label>Tempo de transição em segundos:</label>
-											<input type="number" class="form-control" name="seconds" value="<?= $c_dados['seconds'] ?? ''; ?>">
-											<em>Deixe em branco para transição manual</em>
+											<label>Cor Timer:</label>
+											<div class="color-picker input-group colorpicker-element focused">
+												<input type="text" value="<?= $c_dados['cor_timer'] ?? ''; ?>" name="cor_timer" class="form-control">
+												<span class="input-group-append">
+													<span class="input-group-text add-on white">
+														<i class="circle" style="background-color: rgb(0, 170, 187);"></i>
+													</span>
+												</span>
+											</div>
 										</div>
 									</div>
-								</div>
+									<div class="col">
+										<div class="form-group">
+											<label>Cor Texto Timer:</label>
+											<div class="color-picker input-group colorpicker-element focused">
+												<input type="text" value="<?= $c_dados['cor_text_timer'] ?? ''; ?>" name="cor_text_timer" class="form-control">
+												<span class="input-group-append">
+													<span class="input-group-text add-on white">
+														<i class="circle" style="background-color: rgb(0, 170, 187);"></i>
+													</span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>								
 							</div>
 						</div>
 						<br>
@@ -602,6 +656,8 @@
 				produto: <?= $produtos ?>,
 				url: "<?= $dados['url'] ?? ''; ?>", 
 				tipo:"<?= $dados['tipo'] ?? ''; ?>",
+				timer: "<?= $dados['timer'] ?? ''; ?>",
+				data_timer: "<?= $dados['data_timer'] ?? ''; ?>",
 				pdt:null
 			},
 			methods:{
