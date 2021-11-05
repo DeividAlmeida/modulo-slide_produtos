@@ -99,18 +99,19 @@ if ($id != '0') {
 
 	.bdt-wc-slider .bdt-wc-slider-image img{
 		object-fit	: contain !important;
-		width		: 80% !important;
-		height		: auto;
+		height		: 100% !important;
 		margin		: 80px 80px 80px 0px;
+		max-height	: 480px !important;
 	}
 
 	.info{
-		margin-left	:80px
+		margin-left	: 80px !important;
+		padding		: 0px 0px 30px 15px !important;
 	}
 	#clock{
 		list-style-type			: none;
 		display					: grid;
-		grid-template-columns	: 40px 40px 40px 25px;
+		grid-template-columns	: auto auto auto 25px;
 		padding					: 1px;
 
 	}
@@ -123,20 +124,44 @@ if ($id != '0') {
 		font-size:25px;
 	}
 	#countdown>label{
-		margin: 9px 0px 0px 2px
+		margin: 9px 10px 0px 2px
+	}
+	ul#clock>li>span{
+		margin-right	: 5px
+	}
+	.text{
+		display	: flex
+	}
+	.bt-mobile{
+		display 		: none !important;
+		width			: 100%;
+		justify-content	: center !important;
+		position		: relative;
+		top				: 130px !important;
+	}
+
+	@media only screen and (min-width: 1250px){
+		.bdt-wc-slider .bdt-wc-slider-image img{
+			position: relative;
+			right: 70px !important;
+		}
 	}
 	@media only screen and (max-width:960px) {
+		.bdt-wc-slider .bdt-wc-add-to-cart a{
+			padding		: 20px 50px;
+			font-size 	: 15px !important;
+		}
+		.bt-mobile{
+			display :	flex !important;
+		}
 		.bdt-controle{
-			bottom: 250px !important;
+			bottom: 290px !important;
 		}
 
-		.bdt-wc-slider .bdt-wc-slider-image> img{
-			margin		:80px 80px 80px 0px;
-		}
 
 		.bdt-wc-slider .bdt-slider-item-content{
 			background	: transparent !important;
-			bottom		: 330px !important;
+			bottom		: 400px !important;
 		}
 
 		.info{
@@ -157,7 +182,7 @@ if ($id != '0') {
 			margin	: 0px !important;
 			height	: 50% !important;
 			position: absolute !important;
-			top	: 290px !important;
+			top	: 225px !important;
 		}
 
 		.bdt-wc-slider .bdt-wc-slider-image{
@@ -184,7 +209,10 @@ if ($id != '0') {
 			text-align	: center !important;
 			padding 	: 0px !important;
 			position	: relative !important;
-			top			:10px !important;
+			top			: 10px !important;
+		}
+		.bdt-wc-slider.bdt-slideshow .bdt-slideshow-content-wrapper .bdt-wc-slider-title{
+			margin-top : 0px !important;
 		}
 	}
 	</style>
@@ -226,8 +254,7 @@ if ($id != '0') {
 																			<ul class="bdt-slideshow-items bdt-child-width-1-1"
 																				style="min-height: 600px;">
 																				<?php foreach ($Query as  $dados) { ?>
-																				<li class="bdt-slideshow-item"
-																					tabindex="-1" >
+																				<li class="bdt-slideshow-item" tabindex="-1" id="<?= $dados['id']?>">
 																					<div class="bdt-slideshow-item-inner bdt-grid bdt-grid-collapse bdt-height-1-1"
 																						data-bdt-grid="">
 																						<div class="bdt-width-1-2@m bdt-flex bdt-flex-middle bdt-slider-item-content bdt-first-column">
@@ -286,7 +313,7 @@ if ($id != '0') {
 																										</div>
 																								<?php } ?>
 																								</div>
-																								<div class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-right bdt-flex-middle">
+																								<div class="bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-right bdt-flex-middle bdt-visible@m">
 																									<div class="bdt-wc-add-to-cart">
 																										<a target="<?= $dados['destino_url']; ?>" href="<?= $dados['url']; ?>"
 																											data-quantity="1"
@@ -311,7 +338,17 @@ if ($id != '0') {
 
 																							</div>
 																						</div>
-
+																						<div class="bt-mobile bdt-wc-add-to-cart-readmore bdt-flex bdt-flex-middle bdt-flex-middle">
+																							<div class="bdt-wc-add-to-cart">
+																								<a target="<?= $dados['destino_url']; ?>" href="<?= $dados['url']; ?>"
+																									data-quantity="1"
+																									class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+																									data-product_id="41202"
+																									data-product_sku=""
+																									aria-label="Add “Scout Brook in Steel” to your cart"
+																									rel="nofollow">Comprar</a>
+																							</div>																								
+																						</div>
 																					</div>
 																				</li>
 																				<?php } ?>																				
@@ -367,41 +404,61 @@ document.querySelectorAll('#countdown').forEach(a=>{
 		birthday =  a.getAttribute('data-timer')
 
   		today = mm + "-" + dd + "-" + yyyy;
-		  tipo == 'loop'? birthday = yyyy + "-" + mm + "-" + dd+"T"+birthday: void(0);
-		if (today > birthday) {
+		if (today > birthday && tipo != 'loop') {
 			birthday = dayMonth + nextYear;
 		}
   		//end
   		let countDown = new Date(birthday).getTime(),
       	x = setInterval(function() {    
-	
         let now = new Date().getTime(),
-           distance = countDown - now;
-		if( distance <= 0 && tipo == 'loop') {
+              distance = countDown - now;
+		if(tipo == 'loop') {
 			let minutos = (parseInt(a.getAttribute('data-timer').slice(0,2))*60)+parseInt(a.getAttribute('data-timer').slice(3))
-			countDown = new Date().getTime()+minutos*60000
-			if(!localStorage.getItem(a.getAttribute('data-id')+'counterWA')){
+			if(!localStorage.getItem(a.getAttribute('data-id')+'counterWA') || localStorage.getItem(a.getAttribute('data-id')+'counterWAC') != a.getAttribute('data-timer')){
+				countDown = new Date().getTime()+minutos*60000
 				distance = countDown - now;
-				localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+				localStorage.setItem(a.getAttribute('data-id')+'counterWA',countDown)
+				localStorage.setItem(a.getAttribute('data-id')+'counterWAC',a.getAttribute('data-timer'))
 			}else{
-				if(localStorage.getItem(a.getAttribute('data-id')+'counterWA') <= 0 && tipo == 'loop'){
-					distance = countDown - now;
-					localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+								
+				if((parseInt(localStorage.getItem(a.getAttribute('data-id')+'counterWA')) - now )<= 0){
+					countDown = new Date().getTime()+minutos*60000
+					localStorage.setItem(a.getAttribute('data-id')+'counterWA',countDown)
+					distance = countDown - now;		
 				}else{
-					distance = parseInt(localStorage.getItem(a.getAttribute('data-id')+'counterWA'))
-					localStorage.setItem(a.getAttribute('data-id')+'counterWA',distance)
+					countDown = parseInt(localStorage.getItem(a.getAttribute('data-id')+'counterWA'))
+					distance = countDown - now;		
 				}
+				
 			}
 		}
+		console.log(a.childNodes[3].childNodes);
+		  a.childNodes[3].childNodes[1].innerHTML = '<span>'+Math.floor(distance / (day))+'</span>'
+		  a.childNodes[3].childNodes[9].innerHTML = '<span>Dias</span>'
+		if (Math.floor(distance / (day))==0) {
+			a.childNodes[3].childNodes[1].innerHTML = ''
+			a.childNodes[3].childNodes[9].innerHTML = ''
+		}
+          a.childNodes[3].childNodes[3].innerHTML = '<span>'+Math.floor((distance % (day)) / (hour))+'</span>'
+          a.childNodes[3].childNodes[11].innerHTML = '<span>Horas</span>'
 
-		  a.childNodes[3].childNodes[1].innerText = Math.floor(distance / (day)),
-          a.childNodes[3].childNodes[3].innerText = Math.floor((distance % (day)) / (hour)),
-          a.childNodes[3].childNodes[5].innerText = Math.floor((distance % (hour)) / (minute)),
-          a.childNodes[3].childNodes[7].innerText = Math.floor((distance % (minute)) / second);
+		 if (Math.floor((distance % (day)) / (hour))<=0) {
+			a.childNodes[3].childNodes[3].innerHTML = ''
+			a.childNodes[3].childNodes[11].innerHTML = ''
+		 }
+          a.childNodes[3].childNodes[5].innerHTML = '<span>'+Math.floor((distance % (hour)) / (minute))+'</span>'
+          a.childNodes[3].childNodes[13].innerHTML = '<span>Min</span>'
+		  if (Math.floor((distance % (day)) / (minute))<=0) {
+			a.childNodes[3].childNodes[5].innerHTML = ''
+          	a.childNodes[3].childNodes[13].innerHTML = ''
+		  }
+
+          a.childNodes[3].childNodes[7].innerHTML = Math.floor((distance % (minute)) / second);
 
         //do something later when date is reached
         if (distance <= 0 && tipo == 'padrao') {
-			a.remove()
+			document.getElementById(a.getAttribute('data-id')).remove()
+			fetch('apis/?Status=null&id='+a.getAttribute('data-id'))
           	clearInterval(x);
         }
         //seconds
