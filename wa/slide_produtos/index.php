@@ -38,8 +38,6 @@ if ($id != '0') {
 	#countdown{
 		display			: flex;
 		white-space		: nowrap;
-		display			: flex;
-		white-space		: nowrap;
 		background		: <?= $categoria['cor_timer']; ?>  !important;
 		color			: <?= $categoria['cor_text_timer']; ?>  !important;
 		padding			: 10px;
@@ -96,14 +94,14 @@ if ($id != '0') {
 		position	: relative !important;
 		bottom		: 350px;
 	}
-
+	
 	.bdt-wc-slider .bdt-wc-slider-image img{
 		object-fit	: contain !important;
 		height		: 100% !important;
 		margin		: 80px 80px 80px 0px;
 		max-height	: 480px !important;
 	}
-
+	
 	.info{
 		margin-left	: 80px !important;
 		padding		: 0px 0px 30px 15px !important;
@@ -124,10 +122,10 @@ if ($id != '0') {
 		font-size:25px;
 	}
 	#countdown>label{
-		margin: 9px 10px 0px 2px
+		margin	: 9px 10px 0px 2px
 	}
 	ul#clock>li>span{
-		margin-right	: 5px
+		margin-right	: 10px !important
 	}
 	.text{
 		display	: flex
@@ -146,7 +144,13 @@ if ($id != '0') {
 			right: 70px !important;
 		}
 	}
+
 	@media only screen and (max-width:960px) {
+		
+		#countdown{
+			display		: block;
+		}
+
 		.bdt-wc-slider .bdt-wc-add-to-cart a{
 			padding		: 20px 50px;
 			font-size 	: 15px !important;
@@ -199,6 +203,7 @@ if ($id != '0') {
 
 	}
 	@media only screen and (max-width: 375px) {
+		
 		.bdt-wc-slider .bdt-wc-slider-image> img{
 			margin	: 0px !important;
 			width	: 100% !important;
@@ -432,7 +437,6 @@ document.querySelectorAll('#countdown').forEach(a=>{
 				
 			}
 		}
-		console.log(a.childNodes[3].childNodes);
 		  a.childNodes[3].childNodes[1].innerHTML = '<span>'+Math.floor(distance / (day))+'</span>'
 		  a.childNodes[3].childNodes[9].innerHTML = '<span>Dias</span>'
 		if (Math.floor(distance / (day))==0) {
