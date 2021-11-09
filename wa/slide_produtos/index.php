@@ -105,6 +105,8 @@ if ($id != '0') {
 	.info{
 		margin-left	: 80px !important;
 		padding		: 0px 0px 30px 15px !important;
+		position	: relative;
+		bottom		: 50px !important;
 	}
 	#clock{
 		list-style-type			: none;
@@ -122,10 +124,10 @@ if ($id != '0') {
 		font-size:25px;
 	}
 	#countdown>label{
-		margin	: 9px 10px 0px 2px
+		margin: 9px 10px 0px 2px
 	}
 	ul#clock>li>span{
-		margin-right	: 10px !important
+		margin-right	: 10px !important;
 	}
 	.text{
 		display	: flex
@@ -137,11 +139,20 @@ if ($id != '0') {
 		position		: relative;
 		top				: 130px !important;
 	}
-
+	.bdt-wc-slider-text{
+		margin-top	: 0px !important;
+	}
 	@media only screen and (min-width: 1250px){
 		.bdt-wc-slider .bdt-wc-slider-image img{
 			position: relative;
 			right: 70px !important;
+		}
+		.bdt-controle{
+			position: relative !important;
+			bottom: 450px !important;
+		}
+		.margin-left{
+			margin-left:0px !important;
 		}
 	}
 
