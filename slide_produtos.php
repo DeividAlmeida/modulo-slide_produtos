@@ -647,7 +647,7 @@
 			</div>
 		</div>
 	</div>
-	<?php $produtos = json_encode(DBRead('ecommerce','*')); ?>
+	<?php if(DBRead('modulos','*',"WHERE url = 'ecommerce.php'")){ $produtos = json_encode(DBRead('ecommerce','*')); }else{$produtos =[]; } ?>
 	<script type="text/javascript">
 	    const vue = new Vue({
 			el:"#pdtv",        
