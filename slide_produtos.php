@@ -92,7 +92,9 @@
 									<select  class="form-control" name="tipo" v-model="tipo" >
 										<option value="">Escolha uma opção</option>
 										<option value="externo">Link Externo</option>
-										<option value="interno">Produto da Loja</option>
+										<?php if(DBRead('modulos','*',"WHERE url = 'ecommerce.php'")){	?>				
+											<option value="interno">Produto da Loja</option>
+										<?php } ?>
 									</select>
 								</div>							
 								<div v-if="tipo=='externo'" class="form-group" >
@@ -560,10 +562,8 @@
 
 
 							<?php 
-								foreach ($Query as $dados) { 							
-								
+								foreach ($Query as $dados) { 						
 									 $CodSite  ='<iframe onload="Sframe(this)" id="Sframe" src="' . RemoveHttpS(ConfigPainel('base_url')) . 'wa/slide_produtos/?id='.$dados['id'].'" ></iframe>';
-		
 									?>
 									<tr>
 										<td><?= $dados['id']; ?></td>
@@ -653,7 +653,9 @@
 			el:"#pdtv",        
 			components: { Multiselect: window.VueMultiselect.default },
 			data:{
+			<?php if(DBRead('modulos','*',"WHERE url = 'ecommerce.php'")){	?>
 				produto: <?= $produtos ?>,
+			<?php } ?>
 				url: "<?= $dados['url'] ?? ''; ?>", 
 				tipo:"<?= $dados['tipo'] ?? ''; ?>",
 				timer: "<?= $dados['timer'] ?? ''; ?>",
@@ -666,7 +668,9 @@
 				}
 			},
 			created() {
-				if(this.type != '') return 	this.produto.filter(a=>{if(a.id==Math.abs(this.url.substring(this.url.lastIndexOf("-"),this.url.search('.html')))){this.pdt=a}})
+				<?php if(DBRead('modulos','*',"WHERE url = 'ecommerce.php'")){	?>
+					if(this.type != '') return 	this.produto.filter(a=>{if(a.id==Math.abs(this.url.substring(this.url.lastIndexOf("-"),this.url.search('.html')))){this.pdt=a}})
+				<?php } ?>
 				 
 			}
 		})
